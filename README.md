@@ -2,7 +2,7 @@
 
 > A web application to help you find your next rental property.
 
-This is the main project from my [Next 14 From Scratch Course](https://www.traversymedia.com/nextjs-from-scratch)
+This is the main project from [Next 14 From Scratch Course](https://www.traversymedia.com/nextjs-from-scratch)
 
 ## Features
 
