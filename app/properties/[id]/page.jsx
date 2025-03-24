@@ -8,6 +8,7 @@ import PropertyContactForm from '@/components/PropertyContactForm';
 import { convertToSerializeableObject } from '@/utils/convertToObject';
 import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
+import PropertyImages from '@/components/PropertyImages';
 
 const PropertyPage = async ({ params }) => {
   await connectDB();
@@ -48,6 +49,7 @@ const PropertyPage = async ({ params }) => {
           </div>
         </div>
       </section>
+      <PropertyImages images={property.images} />
     </>
   );
 };
