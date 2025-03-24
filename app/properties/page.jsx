@@ -1,9 +1,19 @@
+import Pagination from '@/components/Pagination';
 import PropertyCard from '@/components/PropertyCard';
-import { fetchProperties } from '@/utils/requests';
+import connectDB from '@/config/database';
+import Property from '@/models/Property';
 
-const PropertiesPage = async () => {
-  const properties = await fetchProperties();
-  properties.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const PropertiesPage = async ({ searchParams: { pageSize = 3, page = 1 }}) => {
+   await connectDB();
+   const skip = (page - 1) * pageSize;
+
+   const total = await Property.countDocuments({});
+   const properties = await Property.find({}).skip(skip).limit(pageSize);
+
+   // Calculate if pagination is needed
+   const showPagination = total > pageSize;
+
   return (
     <section className='px-4 py-6'>
       <div className='container-xl lg:container m-auto px-4 py-6'>
@@ -17,6 +27,13 @@ const PropertiesPage = async () => {
                 property={property}></PropertyCard>
             ))}
           </div>
+        )}
+        {showPagination && (
+          <Pagination
+            page={parseInt(page)}
+            pageSize={parseInt(pageSize)}
+            totalItems={total}
+          />
         )}
       </div>
     </section>
